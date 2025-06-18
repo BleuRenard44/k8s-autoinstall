@@ -36,7 +36,8 @@ sudo systemctl enable containerd
 
 # 5. Installer Kubernetes (kubelet, kubeadm, kubectl)
 sudo apt install -y apt-transport-https ca-certificates curl
-sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://pkgs.k8s.io/core:/stable:/deb/Release.key
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v0.0/deb/Release.key | gpg --dearmor | sudo tee /etc/apt/keyrings/kubernetes-apt-keyring.gpg > /dev/null
 echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://pkgs.k8s.io/core:/stable:/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 sudo apt update
 sudo apt install -y kubelet kubeadm kubectl
